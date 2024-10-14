@@ -4,8 +4,8 @@ import java.util.Properties;
 
 import com.groupeisi.companyspringmvctiles.entities.AccountUserEntity;
 import com.groupeisi.companyspringmvctiles.entities.ProductEntity;
-import com.groupeisi.companyspringmvctiles.entities.Purchases;
-import com.groupeisi.companyspringmvctiles.entities.Sales;
+import com.groupeisi.companyspringmvctiles.entities.PurchasesEntity;
+import com.groupeisi.companyspringmvctiles.entities.SalesEntity;
 import org.hibernate.SessionFactory;
 import org.hibernate.boot.registry.StandardServiceRegistryBuilder;
 import org.hibernate.cfg.AvailableSettings;
@@ -47,8 +47,8 @@ public class HibernateUtil {
                 configuration.setProperties(settings);
                 configuration.addAnnotatedClass(AccountUserEntity.class);
                 configuration.addAnnotatedClass(ProductEntity.class);
-                configuration.addAnnotatedClass(Purchases.class);
-                configuration.addAnnotatedClass(Sales.class);
+                configuration.addAnnotatedClass(PurchasesEntity.class);
+                configuration.addAnnotatedClass(SalesEntity.class);
 
                 ServiceRegistry serviceRegistry = new StandardServiceRegistryBuilder()
                         .applySettings(configuration.getProperties()).build();

@@ -5,7 +5,7 @@
 <tiles-definitions>
 
     <!-- LAYOUTS -->
-    <definition name="baseLayout" template="/WEB-INF/jsp/baseLayout.jsp">
+    <definition name="baseLayout" template="/WEB-INF/jsp/backoffice/baseLayout.jsp">
         <put-attribute name="title" value=""/>
         <put-attribute name="content" value=""/>
         <put-attribute name="css" value=""/>
@@ -13,32 +13,30 @@
 
     <definition name="login" extends="baseLayout">
         <put-attribute name="title" value="Login page" type="string"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/pages/login.jsp"/>
-        <put-attribute name="css" value="resources/public/css/login.css"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/backoffice/pages/login.jsp"/>
+        <put-attribute name="css" value="resources/public/css/pages/login.css"/>
     </definition>
 
     <definition name="welcome" extends="baseLayout">
         <put-attribute name="title" value="Welcome page" type="string"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/pages/welcome.jsp"/>
-        <put-attribute name="css" value=""/>
+        <put-attribute name="content" value="/WEB-INF/jsp/backoffice/pages/welcome.jsp"/>
+        <put-attribute name="css" value="resources/public/css/pages/login.css"/>
     </definition>
 
     <definition name="products" extends="baseLayout">
         <put-attribute name="title" value="Produits" type="string"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/pages/products.jsp"/>
-        <put-attribute name="css" value=""/>
+        <put-attribute name="content" value="/WEB-INF/jsp/backoffice/pages/products.jsp"/>
     </definition>
 
     <definition name="purchases" extends="baseLayout">
         <put-attribute name="title" value="Purchases" type="string"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/pages/purchases.jsp"/>
-        <put-attribute name="css" value=""/>
+        <put-attribute name="content" value="/WEB-INF/jsp/backoffice/pages/purchases.jsp"/>
+
     </definition>
 
     <definition name="sales" extends="baseLayout">
         <put-attribute name="title" value="Sales" type="string"/>
-        <put-attribute name="content" value="/WEB-INF/jsp/pages/sales.jsp"/>
-        <put-attribute name="css" value=""/>
+        <put-attribute name="content" value="/WEB-INF/jsp/backoffice/pages/sales.jsp"/>
     </definition>
 
 </tiles-definitions>

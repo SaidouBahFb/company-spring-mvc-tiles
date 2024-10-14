@@ -6,7 +6,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "achats")
-public class Purchases implements Serializable {
+public class PurchasesEntity implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
@@ -23,10 +23,10 @@ public class Purchases implements Serializable {
     @JoinColumn(name = "product_ref", nullable = false)
     private ProductEntity product;
 
-    public Purchases() {
+    public PurchasesEntity() {
     }
 
-    public Purchases(Long id, Date dateP, double quantity, ProductEntity product) {
+    public PurchasesEntity(Long id, Date dateP, double quantity, ProductEntity product) {
         this.id = id;
         this.dateP = dateP;
         this.quantity = quantity;

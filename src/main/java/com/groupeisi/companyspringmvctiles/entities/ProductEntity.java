@@ -18,15 +18,15 @@ public class ProductEntity implements Serializable {
     private double stock;
 
     @OneToMany(mappedBy = "product")
-    private List<Purchases> purchases;
+    private List<PurchasesEntity> purchases;
 
     @OneToMany(mappedBy = "product")
-    private List<Sales> sales;
+    private List<SalesEntity> sales;
 
     public ProductEntity() {
     }
 
-    public ProductEntity(String ref, String name, double stock, List<Purchases> purchases, List<Sales> sales) {
+    public ProductEntity(String ref, String name, double stock, List<PurchasesEntity> purchases, List<SalesEntity> sales) {
         this.ref = ref;
         this.name = name;
         this.stock = stock;
@@ -58,19 +58,19 @@ public class ProductEntity implements Serializable {
         this.stock = stock;
     }
 
-    public List<Purchases> getPurchases() {
+    public List<PurchasesEntity> getPurchases() {
         return purchases;
     }
 
-    public void setPurchases(List<Purchases> purchases) {
+    public void setPurchases(List<PurchasesEntity> purchases) {
         this.purchases = purchases;
     }
 
-    public List<Sales> getSales() {
+    public List<SalesEntity> getSales() {
         return sales;
     }
 
-    public void setSales(List<Sales> sales) {
+    public void setSales(List<SalesEntity> sales) {
         this.sales = sales;
     }
 }

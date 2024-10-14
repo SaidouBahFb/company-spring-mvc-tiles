@@ -1,7 +1,7 @@
 package com.groupeisi.companyspringmvctiles.mapper;
 
 import com.groupeisi.companyspringmvctiles.dto.PurchasesDto;
-import com.groupeisi.companyspringmvctiles.entities.Purchases;
+import com.groupeisi.companyspringmvctiles.entities.PurchasesEntity;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -10,9 +10,9 @@ public class PurchasesMapper {
     private PurchasesMapper() {
     }
 
-    public static Purchases toPurchasesEntity(PurchasesDto purchasesDto) {
+    public static PurchasesEntity toPurchasesEntity(PurchasesDto purchasesDto) {
 
-        Purchases purchasesEntity = new Purchases();
+        PurchasesEntity purchasesEntity = new PurchasesEntity();
 
         purchasesEntity.setId(purchasesDto.getId());
         purchasesEntity.setDateP(purchasesDto.getDateP());
@@ -22,7 +22,7 @@ public class PurchasesMapper {
         return purchasesEntity;
     }
 
-    public static PurchasesDto toPurchasesDto(Purchases purchasesEntity) {
+    public static PurchasesDto toPurchasesDto(PurchasesEntity purchasesEntity) {
 
         PurchasesDto purchasesDto = new PurchasesDto();
 
@@ -34,7 +34,7 @@ public class PurchasesMapper {
         return purchasesDto;
     }
 
-    public static List<PurchasesDto> toListPurchasesDto(List<Purchases> purchasesEntities) {
+    public static List<PurchasesDto> toListPurchasesDto(List<PurchasesEntity> purchasesEntities) {
         return purchasesEntities.stream()
                 .map(PurchasesMapper::toPurchasesDto)
                 .collect(Collectors.toList());

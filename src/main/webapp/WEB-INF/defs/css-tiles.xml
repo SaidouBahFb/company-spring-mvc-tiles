@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="ISO-8859-1" ?>
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 3.0//EN"
+        "http://tiles.apache.org/dtds/tiles-config_3_0.dtd">
+
+<tiles-definitions>
+
+    <definition name="baseLayoutCss">
+        <put-attribute name="css" value="resources/public/css/main.css"/>
+    </definition>
+
+    <definition name="loginCss" extends="baseLayoutCss">
+        <put-attribute name="css" value="resources/public/css/pages/login.css"/>
+    </definition>
+
+    <definition name="welcomeCss" extends="baseLayoutCss">
+        <put-attribute name="css" value="resources/public/css/pages/welcome.css"/>
+    </definition>
+</tiles-definitions>

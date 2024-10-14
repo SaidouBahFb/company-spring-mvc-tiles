@@ -1,7 +1,7 @@
 package com.groupeisi.companyspringmvctiles.dao;
 
-import com.groupeisi.companyspringmvctiles.entities.Sales;
+import com.groupeisi.companyspringmvctiles.entities.SalesEntity;
 
-public interface ISalesDao extends Repository<Sales>{
+public interface ISalesDao extends Repository<SalesEntity>{
 
 }

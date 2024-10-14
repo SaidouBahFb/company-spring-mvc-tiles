@@ -7,7 +7,7 @@ import com.groupeisi.companyspringmvctiles.dao.IPurchasesDao;
 import com.groupeisi.companyspringmvctiles.dao.PurchasesDao;
 import com.groupeisi.companyspringmvctiles.dto.ProductDto;
 import com.groupeisi.companyspringmvctiles.dto.PurchasesDto;
-import com.groupeisi.companyspringmvctiles.entities.Purchases;
+import com.groupeisi.companyspringmvctiles.entities.PurchasesEntity;
 import com.groupeisi.companyspringmvctiles.mapper.PurchasesMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -17,12 +17,12 @@ public class PurchasesService implements IPurchasesService {
 
     private static final Logger logger = LoggerFactory.getLogger(PurchasesService.class);
 
-    private IPurchasesDao purchasesDao = new PurchasesDao();
-    private IProductService productService = new ProductService();
+    private final IPurchasesDao purchasesDao = new PurchasesDao();
+    private final IProductService productService = new ProductService();
 
     @Override
     public Optional<List<PurchasesDto>> findAll() {
-        List<Purchases> purchasesEntities = purchasesDao.list(new Purchases());
+        List<PurchasesEntity> purchasesEntities = purchasesDao.list(new PurchasesEntity());
         List<PurchasesDto> purchasesDtos = PurchasesMapper.toListPurchasesDto(purchasesEntities);
 
         return Optional.of(purchasesDtos);
@@ -32,7 +32,7 @@ public class PurchasesService implements IPurchasesService {
     public boolean save(PurchasesDto purchasesDto) {
         logger.info("PurchasesService - Tentative d'enregistrement d'un achat : {}", purchasesDto);
 
-        Purchases purchasesEntity = PurchasesMapper.toPurchasesEntity(purchasesDto);
+        PurchasesEntity purchasesEntity = PurchasesMapper.toPurchasesEntity(purchasesDto);
         ProductDto productDto = purchasesDto.getProduct();
 
         try {

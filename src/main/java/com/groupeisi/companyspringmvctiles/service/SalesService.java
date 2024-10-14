@@ -10,7 +10,7 @@ import com.groupeisi.companyspringmvctiles.dao.SalesDao;
 import com.groupeisi.companyspringmvctiles.dto.ProductDto;
 import com.groupeisi.companyspringmvctiles.dto.SalesDto;
 import com.groupeisi.companyspringmvctiles.entities.ProductEntity;
-import com.groupeisi.companyspringmvctiles.entities.Sales;
+import com.groupeisi.companyspringmvctiles.entities.SalesEntity;
 import com.groupeisi.companyspringmvctiles.exception.NotAvailableQuantityException;
 import com.groupeisi.companyspringmvctiles.mapper.SalesMapper;
 import org.slf4j.Logger;
@@ -22,8 +22,8 @@ import javax.transaction.Transactional;
 public class SalesService implements ISalesService {
 
     private static final Logger logger = LoggerFactory.getLogger(SalesService.class);
-    private ISalesDao salesDao = new SalesDao();
-    private IProductService productService = new ProductService();
+    private final ISalesDao salesDao = new SalesDao();
+    private final IProductService productService = new ProductService();
     private final IProductDao productDao;
 
     public SalesService() {
@@ -32,7 +32,7 @@ public class SalesService implements ISalesService {
 
     @Override
     public Optional<List<SalesDto>> findAll() {
-        List<Sales> salesEntities = salesDao.list(new Sales());
+        List<SalesEntity> salesEntities = salesDao.list(new SalesEntity());
         List<SalesDto> salesDtos = SalesMapper.toListSalesDto(salesEntities);
 
         return Optional.of(salesDtos);
@@ -43,7 +43,7 @@ public class SalesService implements ISalesService {
 
         logger.info("SalesService - Tentative d'enregistrement d'une vente : {}", salesDto);
 
-        Sales salesEntity = SalesMapper.toSalesEntity(salesDto);
+        SalesEntity salesEntity = SalesMapper.toSalesEntity(salesDto);
         ProductDto productDto = salesDto.getProduct();
 
         try {
@@ -74,7 +74,7 @@ public class SalesService implements ISalesService {
 
     @Transactional
     @Override
-    public boolean saleTransactional(Sales sales) {
+    public boolean saleTransactional(SalesEntity sales) {
         try {
             Optional<ProductEntity> productOptional = this.productDao.findByRef(sales.getProduct().getRef());
             if (productOptional.isPresent()) {

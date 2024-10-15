@@ -10,7 +10,6 @@ public class ClientDto {
     private String email;
     private String tel;
     private String address;
-
     private List<PanierDto> paniers;
 
     public ClientDto() {}

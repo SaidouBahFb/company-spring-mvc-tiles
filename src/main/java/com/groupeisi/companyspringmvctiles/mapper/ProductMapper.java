@@ -37,4 +37,10 @@ public class ProductMapper {
                 .map(ProductMapper::toProductDto)
                 .collect(Collectors.toList());
     }
+
+    public static List<ProductEntity> toListProductEntity(List<ProductDto> productDtos) {
+        return productDtos.stream()
+                .map(ProductMapper::toProductEntity)
+                .collect(Collectors.toList());
+    }
 }

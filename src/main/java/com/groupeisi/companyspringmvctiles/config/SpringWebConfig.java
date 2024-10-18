@@ -44,6 +44,7 @@ public class SpringWebConfig implements WebMvcConfigurer {
         final TilesConfigurer configurer = new TilesConfigurer();
         configurer.setDefinitions(
                 "WEB-INF/defs/backoffice-tiles.xml",
+                //"WEB-INF/defs/frontoffice-tiles.xml",
                 "WEB-INF/defs/css-tiles.xml"
         );
         configurer.setCheckRefresh(true);

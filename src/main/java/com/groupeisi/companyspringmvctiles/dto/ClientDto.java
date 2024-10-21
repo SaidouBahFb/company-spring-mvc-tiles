@@ -8,17 +8,19 @@ public class ClientDto {
     private String firstName;
     private String lastName;
     private String email;
+    private String password;
     private String tel;
     private String address;
     private List<PanierDto> paniers;
 
     public ClientDto() {}
 
-    public ClientDto(Long id, String firstName, String lastName, String email, String tel, String address, List<PanierDto> paniers) {
+    public ClientDto(Long id, String firstName, String lastName, String email, String password,  String tel, String address, List<PanierDto> paniers) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.email = email;
+        this.password = password;
         this.tel = tel;
         this.address = address;
         this.paniers = paniers;
@@ -58,6 +60,14 @@ public class ClientDto {
 
     public String getTel() {
         return tel;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public void setTel(String tel) {

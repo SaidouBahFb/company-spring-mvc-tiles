@@ -18,6 +18,7 @@ public class ClientMapper {
         clientEntity.setFirstName(clientDto.getFirstName());
         clientEntity.setLastName(clientDto.getLastName());
         clientEntity.setEmail(clientDto.getEmail());
+        clientEntity.setPassword(clientDto.getPassword());
         clientEntity.setTel(clientDto.getTel());
         clientEntity.setAddress(clientDto.getAddress());
 
@@ -32,6 +33,7 @@ public class ClientMapper {
         clientDto.setFirstName(clientEntity.getFirstName());
         clientDto.setLastName(clientEntity.getLastName());
         clientDto.setEmail(clientEntity.getEmail());
+        clientDto.setPassword(clientEntity.getPassword());
         clientDto.setTel(clientEntity.getTel());
         clientDto.setAddress(clientEntity.getAddress());
 

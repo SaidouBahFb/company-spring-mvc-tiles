@@ -14,9 +14,9 @@ import java.util.Optional;
 
 public class ProductService implements IProductService {
 
-    private static final Logger logger = LoggerFactory.getLogger(PurchasesService.class);
+    private static final Logger logger = LoggerFactory.getLogger(ProductService.class);
 
-    private IProductDao productDao = new ProductDao();
+    private final IProductDao productDao = new ProductDao();
 
     @Override
     public Optional<List<ProductDto>> findAll() {

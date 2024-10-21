@@ -5,38 +5,67 @@
 <tiles-definitions>
 
     <!-- LAYOUTS -->
-    <definition name="baseLayout" template="/WEB-INF/jsp/backoffice/baseLayout.jsp">
+    <definition name="backofficeBaseLayout" template="/WEB-INF/jsp/backoffice/baseLayout.jsp">
         <put-attribute name="title" value=""/>
         <put-attribute name="content" value=""/>
         <put-attribute name="css" value=""/>
     </definition>
 
-    <definition name="login" extends="baseLayout">
+    <definition name="frontOfficeBaseLayout" template="/WEB-INF/jsp/frontoffice/baseLayout.jsp">
+        <put-attribute name="title" value=""/>
+        <put-attribute name="content" value=""/>
+    </definition>
+
+    <!-- LAYOUTS -->
+
+    <!-- DEFINITIONS BO-->
+
+    <definition name="login" extends="backofficeBaseLayout">
         <put-attribute name="title" value="Login page" type="string"/>
         <put-attribute name="content" value="/WEB-INF/jsp/backoffice/pages/login.jsp"/>
         <put-attribute name="css" value="resources/public/css/pages/login.css"/>
     </definition>
 
-    <definition name="welcome" extends="baseLayout">
+    <definition name="welcome" extends="backofficeBaseLayout">
         <put-attribute name="title" value="Welcome page" type="string"/>
         <put-attribute name="content" value="/WEB-INF/jsp/backoffice/pages/welcome.jsp"/>
         <put-attribute name="css" value="resources/public/css/pages/login.css"/>
     </definition>
 
-    <definition name="products" extends="baseLayout">
+    <definition name="products" extends="backofficeBaseLayout">
         <put-attribute name="title" value="Produits" type="string"/>
         <put-attribute name="content" value="/WEB-INF/jsp/backoffice/pages/products.jsp"/>
     </definition>
 
-    <definition name="purchases" extends="baseLayout">
+    <definition name="purchases" extends="backofficeBaseLayout">
         <put-attribute name="title" value="Purchases" type="string"/>
         <put-attribute name="content" value="/WEB-INF/jsp/backoffice/pages/purchases.jsp"/>
 
     </definition>
 
-    <definition name="sales" extends="baseLayout">
+    <definition name="sales" extends="backofficeBaseLayout">
         <put-attribute name="title" value="Sales" type="string"/>
         <put-attribute name="content" value="/WEB-INF/jsp/backoffice/pages/sales.jsp"/>
     </definition>
 
+    <definition name="clients" extends="backofficeBaseLayout">
+        <put-attribute name="title" value="Clients" type="string"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/backoffice/pages/clients.jsp"/>
+    </definition>
+
+    <!-- DEFINITIONS BO -->
+
+    <!-- DEFINITIONS FO-->
+
+    <definition name="paniers" extends="frontOfficeBaseLayout">
+        <put-attribute name="title" value="Panier page" type="string"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/frontoffice/pages/paniers.jsp"/>
+    </definition>
+
+    <definition name="commandes" extends="frontOfficeBaseLayout">
+        <put-attribute name="title" value="Commandes page" type="string"/>
+        <put-attribute name="content" value="/WEB-INF/jsp/frontoffice/pages/commandes.jsp"/>
+    </definition>
+
+    <!-- DEFINITIONS FO -->
 </tiles-definitions>

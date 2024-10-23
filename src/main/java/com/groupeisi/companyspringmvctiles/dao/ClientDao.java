@@ -1,5 +1,6 @@
 package com.groupeisi.companyspringmvctiles.dao;
 
+import com.groupeisi.companyspringmvctiles.config.HibernateUtil;
 import com.groupeisi.companyspringmvctiles.entities.ClientEntity;
 import org.springframework.stereotype.Repository;
 
@@ -47,5 +48,15 @@ public class ClientDao extends RepositoryImpl<ClientEntity> implements IClientDa
         session.getTransaction().commit();
 
         return rowsAffected > 0;
+    }
+
+    @Override
+    public Optional<ClientEntity> findById(Long id) {
+        session = HibernateUtil.getSessionFactory().openSession();
+        try {
+            return Optional.ofNullable(session.get(ClientEntity.class, id));
+        } finally {
+            session.close();
+        }
     }
 }

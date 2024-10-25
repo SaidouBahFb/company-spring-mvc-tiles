@@ -19,7 +19,15 @@ public class PanierMapper {
         panierEntity.setId(panierDto.getId());
         panierEntity.setDate(panierDto.getDate());
         panierEntity.setClient(client);
-        List<ProductEntity> productEntities = ProductMapper.toListProductEntity(panierDto.getProducts());
+        List<ProductEntity> productEntities = panierDto.getProductRefs()
+                .stream()
+                .map(ref -> {
+                    ProductEntity productEntity = new ProductEntity();
+                    productEntity.setRef(ref);
+                    return productEntity;
+                })
+                .collect(Collectors.toList());
+        panierEntity.setProducts(productEntities);
         panierEntity.setProducts(productEntities);
 
         return panierEntity;
@@ -30,9 +38,13 @@ public class PanierMapper {
 
         panierDto.setId(panierEntity.getId());
         panierDto.setDate(panierEntity.getDate());
-        panierDto.setClient(panierEntity.getClient().getId());
+        panierDto.setClientId(panierEntity.getClient().getId());
         List<ProductDto> productDtos = ProductMapper.toListProductDto(panierEntity.getProducts());
-        panierDto.setProducts(productDtos);
+        List<String> productRefs = panierEntity.getProducts()
+                .stream()
+                .map(ProductEntity::getRef)
+                .collect(Collectors.toList());
+        panierDto.setProductRefs(productRefs);
 
         return panierDto;
     }

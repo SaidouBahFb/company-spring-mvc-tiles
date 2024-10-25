@@ -1,6 +1,8 @@
 package com.groupeisi.companyspringmvctiles.controller;
 
+import com.groupeisi.companyspringmvctiles.dto.ClientDto;
 import com.groupeisi.companyspringmvctiles.dto.PanierDto;
+import com.groupeisi.companyspringmvctiles.dto.ProductDto;
 import com.groupeisi.companyspringmvctiles.service.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -19,9 +21,10 @@ public class PanierController {
     private static final Logger logger = LoggerFactory.getLogger(PanierController.class);
 
     private final IPanierService panierService = new PanierService();
-    private final IClientService clientService = new ClientService();
-    private final IProductService productService = new ProductService();
 
+    private final IClientService clientService = new ClientService();
+
+    private final IProductService productService = new ProductService();
 
     @GetMapping("/public/paniers")
     public String showPaniers(Model model) {
@@ -30,9 +33,22 @@ public class PanierController {
         try {
             Optional<List<PanierDto>> paniers = panierService.findAll();
             model.addAttribute("panierList", paniers.orElseThrow());
+
+
+            Optional<List<ClientDto>> clientList = clientService.findAll();
+            model.addAttribute("clientList", clientList);
+
+            System.out.println("clientList" + clientList);
+
+
+            Optional<List<ProductDto>> productList = productService.findAll();
+            model.addAttribute("productList", productList);
+
+            System.out.println("productList" + productList);
+
         } catch (Exception e) {
-            logger.error("Erreur lors de la récupération des paniers", e);
-            model.addAttribute("errorMessage", "Erreur lors de la récupération des paniers.");
+            logger.error("Erreur lors de la récupération des paniers, clients ou produits", e);
+            model.addAttribute("errorMessage", "Erreur lors de la récupération des données.");
         }
 
         return "paniers";
@@ -57,7 +73,6 @@ public class PanierController {
         }
 
         try {
-
             PanierDto panierDto = new PanierDto();
             panierDto.setClientId(clientId);
             panierDto.setProductRefs(productRefs);
@@ -76,7 +91,4 @@ public class PanierController {
 
         return "redirect:/public/paniers";
     }
-
-
-
 }

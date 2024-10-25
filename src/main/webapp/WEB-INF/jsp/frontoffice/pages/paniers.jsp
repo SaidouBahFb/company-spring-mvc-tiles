@@ -1,1 +1,0 @@
-<h4>My paniers</h4>

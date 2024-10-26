@@ -71,7 +71,6 @@ public class ClientController {
 
         } catch (RuntimeException e) {
             logger.error("ClientController - Erreur lors de l'enregistrement du client : {}", e.getMessage());
-            return "redirect:/clients?error";
         }
 
         return "redirect:clients";

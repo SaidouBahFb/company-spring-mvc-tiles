@@ -34,21 +34,14 @@ public class PanierController {
             Optional<List<PanierDto>> paniers = panierService.findAll();
             model.addAttribute("panierList", paniers.orElseThrow());
 
-
             Optional<List<ClientDto>> clientList = clientService.findAll();
             model.addAttribute("clientList", clientList);
-
-            System.out.println("clientList" + clientList);
-
 
             Optional<List<ProductDto>> productList = productService.findAll();
             model.addAttribute("productList", productList);
 
-            System.out.println("productList" + productList);
-
         } catch (Exception e) {
             logger.error("Erreur lors de la récupération des paniers, clients ou produits", e);
-            model.addAttribute("errorMessage", "Erreur lors de la récupération des données.");
         }
 
         return "paniers";
@@ -62,13 +55,11 @@ public class PanierController {
 
         if (clientId == null) {
             logger.error("L'ID du client est nul");
-            model.addAttribute("errorMessage", "ID du client requis.");
             return "redirect:/public/paniers";
         }
 
         if (productRefs == null || productRefs.isEmpty()) {
             logger.error("Liste des produits vide ou nulle");
-            model.addAttribute("errorMessage", "Veuillez sélectionner au moins un produit.");
             return "redirect:/public/paniers";
         }
 

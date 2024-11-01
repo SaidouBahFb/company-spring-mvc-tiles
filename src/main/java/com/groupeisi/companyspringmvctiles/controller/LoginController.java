@@ -39,7 +39,7 @@ public class LoginController {
 
             if (accountUserDto.isPresent()) {
                 session.setAttribute("username", userName);
-                return "welcome";
+                return "products";
             } else {
                 return REDIRECT_TO_LOGIN;
             }

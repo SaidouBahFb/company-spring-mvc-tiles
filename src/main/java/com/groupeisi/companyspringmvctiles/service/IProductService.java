@@ -13,4 +13,6 @@ public interface IProductService {
     Optional<ProductDto> findByRef(String ref);
 
     boolean update(ProductDto productDto);
+
+    Optional<List<ProductDto>> findAllByRef(List<String> refs);
 }

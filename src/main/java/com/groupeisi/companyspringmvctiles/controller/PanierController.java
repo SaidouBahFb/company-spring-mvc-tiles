@@ -9,9 +9,12 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,60 +29,67 @@ public class PanierController {
 
     private final IProductService productService = new ProductService();
 
-    @GetMapping("/public/paniers")
+    @GetMapping("/paniers")
     public String showPaniers(Model model) {
         logger.info("Affichage des paniers");
 
         try {
             Optional<List<PanierDto>> paniers = panierService.findAll();
-            model.addAttribute("panierList", paniers.orElseThrow());
+            model.addAttribute("paniersList", paniers.orElse(new ArrayList<>()));
 
-            Optional<List<ClientDto>> clientList = clientService.findAll();
-            model.addAttribute("clientList", clientList);
+            Optional<List<ProductDto>> products = productService.findAll();
+            model.addAttribute("productList", products.orElse(new ArrayList<>()));
 
-            Optional<List<ProductDto>> productList = productService.findAll();
-            model.addAttribute("productList", productList);
+            Optional<List<ClientDto>> clients = clientService.findAll();
+            model.addAttribute("clientList", clients.orElse(new ArrayList<>()));
 
         } catch (Exception e) {
-            logger.error("Erreur lors de la récupération des paniers, clients ou produits", e);
+            logger.error("Erreur lors de la récupération des données", e);
         }
 
         return "paniers";
     }
 
-    @PostMapping("/paniers")
-    public String savePanier(@RequestParam("clientId") Long clientId,
-                             @RequestParam("productRefs") List<String> productRefs,
-                             Model model) {
-        logger.info("Tentative d'enregistrement d'un panier pour le client : {}", clientId);
-
-        if (clientId == null) {
-            logger.error("L'ID du client est nul");
-            return "redirect:/public/paniers";
-        }
-
-        if (productRefs == null || productRefs.isEmpty()) {
-            logger.error("Liste des produits vide ou nulle");
-            return "redirect:/public/paniers";
-        }
+    @GetMapping("/paniers/details/{id}")
+    public String showDetails(Model model, @PathVariable Long id) {
 
         try {
-            PanierDto panierDto = new PanierDto();
-            panierDto.setClientId(clientId);
-            panierDto.setProductRefs(productRefs);
-
-            boolean success = panierService.save(panierDto);
-            if (!success) {
-                logger.error("Échec de l'enregistrement du panier");
-                return "redirect:/public/paniers";
-            }
-
-            logger.info("Panier enregistré avec succès pour le client : {}", clientId);
+            Optional<PanierDto> panier = panierService.findById(id);
+            model.addAttribute("panier", panier.orElse(null));
         } catch (Exception e) {
-            logger.error("Erreur lors de l'enregistrement du panier", e);
-            return "redirect:/public/paniers";
+            logger.error("Erreur lors de la récupération des données", e);
         }
 
-        return "redirect:/public/paniers";
+        return "detailsPaniers";
+    }
+
+    @PostMapping("/paniers")
+    public String save(
+            @RequestParam("client_id") String client,
+            @RequestParam("products") List<String> products
+    ) {
+
+        logger.debug("Paramètres reçus : productRef={}, quantity={}", client, products);
+        Optional<ClientDto> clientOptional = clientService.findById(Long.valueOf(client));
+
+        if (clientOptional.isPresent()) {
+            ClientDto clientDto = clientOptional.get();
+
+            PanierDto panierDto = new PanierDto();
+            panierDto.setDate(new Date());
+            panierDto.setClient(clientDto);
+            panierDto.setProducts(productService.findAllByRef(products).get());
+            logger.debug("Paramètres reçus : panier={}", panierDto);
+
+            try {
+                panierService.save(panierDto);
+                logger.info("Panier enregistré avec succès");
+            } catch (Exception e) {
+                logger.error("Erreur lors de l'enregistrement du panier", e);
+            }
+        } else {
+            logger.error("Client non trouvé avec l'id ");
+        }
+        return "redirect:paniers";
     }
 }

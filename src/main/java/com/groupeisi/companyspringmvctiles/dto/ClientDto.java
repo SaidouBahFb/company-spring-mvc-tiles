@@ -1,30 +1,17 @@
 package com.groupeisi.companyspringmvctiles.dto;
 
-import java.util.List;
-
 public class ClientDto {
-
     private Long id;
+
     private String firstName;
+
     private String lastName;
+
     private String email;
+
     private String password;
+
     private String tel;
-    private String address;
-    private List<PanierDto> paniers;
-
-    public ClientDto() {}
-
-    public ClientDto(Long id, String firstName, String lastName, String email, String password,  String tel, String address, List<PanierDto> paniers) {
-        this.id = id;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.tel = tel;
-        this.address = address;
-        this.paniers = paniers;
-    }
 
     public Long getId() {
         return id;
@@ -58,10 +45,6 @@ public class ClientDto {
         this.email = email;
     }
 
-    public String getTel() {
-        return tel;
-    }
-
     public String getPassword() {
         return password;
     }
@@ -70,24 +53,24 @@ public class ClientDto {
         this.password = password;
     }
 
+    public String getTel() {
+        return tel;
+    }
+
     public void setTel(String tel) {
         this.tel = tel;
     }
 
-    public String getAddress() {
-        return address;
+    public ClientDto() {
     }
 
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public List<PanierDto> getPaniers() {
-        return paniers;
-    }
-
-    public void setPaniers(List<PanierDto> paniers) {
-        this.paniers = paniers;
+    public ClientDto(Long id, String firstName, String lastName, String email, String password, String tel) {
+        this.id = id;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.email = email;
+        this.password = password;
+        this.tel = tel;
     }
 }
 

@@ -8,20 +8,18 @@ import java.util.List;
 @Entity
 @Table(name = "paniers")
 public class PanierEntity implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private Long id;
 
     @Column(name = "date")
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @ManyToOne
     @JoinColumn(name = "client_id", nullable = false)
     private ClientEntity client;
-
-    @OneToMany(mappedBy = "panier")
-    private List<CommandeEntity> commandes;
 
     @ManyToMany
     @JoinTable(
@@ -31,12 +29,10 @@ public class PanierEntity implements Serializable {
     )
     private List<ProductEntity> products;
 
-    public PanierEntity() {}
+    @OneToMany(mappedBy = "panier")
+    private List<CommandeEntity> commandes;
 
-    public PanierEntity(Date date, ClientEntity client, List<ProductEntity> products) {
-        this.date = date;
-        this.client = client;
-        this.products = products;
+    public PanierEntity() {
     }
 
     public Long getId() {
@@ -53,6 +49,14 @@ public class PanierEntity implements Serializable {
 
     public void setDate(Date date) {
         this.date = date;
+    }
+
+    public List<CommandeEntity> getCommandes() {
+        return commandes;
+    }
+
+    public void setCommandes(List<CommandeEntity> commandes) {
+        this.commandes = commandes;
     }
 
     public ClientEntity getClient() {

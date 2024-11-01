@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
 
 <div>
-    <jsp:include page="welcome.jsp" />
+    <jsp:include page="../pages/welcome.jsp" />
     <div class="container mt-5">
         <div class="row">
             <div class="col-sm-6">
@@ -17,7 +17,6 @@
                                 <th>Nom</th>
                                 <th>Email</th>
                                 <th>Téléphone</th>
-                                <th>Adresse</th>
                             </tr>
                             </thead>
                             <tbody>
@@ -27,7 +26,6 @@
                                     <td>${client.lastName}</td>
                                     <td>${client.email}</td>
                                     <td>${client.tel}</td>
-                                    <td>${client.address}</td>
                                 </tr>
                             </c:forEach>
                             </tbody>
@@ -55,10 +53,6 @@
                             <div class="mb-3">
                                 <label for="inputTel" class="form-label">Téléphone</label>
                                 <input type="text" name="tel" class="form-control" id="inputTel" required>
-                            </div>
-                            <div class="mb-3">
-                                <label for="inputAddress" class="form-label">Adresse</label>
-                                <input type="text" name="address" class="form-control" id="inputAddress">
                             </div>
                             <button type="submit" class="btn btn-primary">Ajouter Client</button>
                         </form>

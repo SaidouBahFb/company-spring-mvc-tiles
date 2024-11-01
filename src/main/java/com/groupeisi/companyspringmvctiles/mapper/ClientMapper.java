@@ -8,19 +8,19 @@ import java.util.stream.Collectors;
 
 public class ClientMapper {
 
-    private ClientMapper() {}
+    public ClientMapper() {
+    }
 
     public static ClientEntity toClientEntity(ClientDto clientDto) {
 
         ClientEntity clientEntity = new ClientEntity();
 
         clientEntity.setId(clientDto.getId());
-        clientEntity.setFirstName(clientDto.getFirstName());
-        clientEntity.setLastName(clientDto.getLastName());
         clientEntity.setEmail(clientDto.getEmail());
         clientEntity.setPassword(clientDto.getPassword());
-        clientEntity.setTel(clientDto.getTel());
-        clientEntity.setAddress(clientDto.getAddress());
+        clientEntity.setFirstName((clientDto.getFirstName()));
+        clientEntity.setLastName((clientDto.getLastName()));
+        clientEntity.setTel((clientDto.getTel()));
 
         return clientEntity;
     }
@@ -30,14 +30,11 @@ public class ClientMapper {
         ClientDto clientDto = new ClientDto();
 
         clientDto.setId(clientEntity.getId());
-        clientDto.setFirstName(clientEntity.getFirstName());
-        clientDto.setLastName(clientEntity.getLastName());
         clientDto.setEmail(clientEntity.getEmail());
         clientDto.setPassword(clientEntity.getPassword());
+        clientDto.setFirstName(clientEntity.getFirstName());
+        clientDto.setLastName(clientEntity.getLastName());
         clientDto.setTel(clientEntity.getTel());
-        clientDto.setAddress(clientEntity.getAddress());
-
-        clientDto.setPaniers(PanierMapper.toListPanierDto(clientEntity.getPaniers()));
 
         return clientDto;
     }

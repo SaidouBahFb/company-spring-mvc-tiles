@@ -46,4 +46,11 @@ public class ClientService implements IClientService {
         ClientEntity clientEntity = ClientMapper.toClientEntity(clientDto);
         return clientDao.update(clientEntity);
     }
+
+    @Override
+    public Optional<ClientDto> findById(Long id) {
+        ClientEntity client = new ClientEntity();
+        Optional<ClientEntity> clientEntity = Optional.ofNullable(clientDao.get(id, client));
+        return clientEntity.map(ClientMapper::toClientDto);
+    }
 }

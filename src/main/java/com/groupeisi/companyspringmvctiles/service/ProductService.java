@@ -8,6 +8,7 @@ import com.groupeisi.companyspringmvctiles.mapper.ProductMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -45,5 +46,17 @@ public class ProductService implements IProductService {
         logger.info("PurchasesService - Tentative de modification d'un produit : {}", productDto);
         ProductEntity productEntity = ProductMapper.toProductEntity(productDto);
         return productDao.update(productEntity);
+    }
+
+    @Override
+    public Optional<List<ProductDto>> findAllByRef(List<String> refs) {
+        List<ProductDto> products = new ArrayList<>();
+
+        refs.forEach(ref -> {
+            Optional<ProductEntity> productEntity = productDao.findByRef(ref);
+            productEntity.ifPresent(entity -> products.add(ProductMapper.toProductDto(entity)));
+        });
+
+        return products.isEmpty() ? Optional.empty() : Optional.of(products);
     }
 }

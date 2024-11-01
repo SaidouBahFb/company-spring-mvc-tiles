@@ -1,65 +1,72 @@
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form" %>
-<%@ taglib uri="http://www.springframework.org/tags" prefix="spring" %>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
+<div>
+    <div class="container mt-5">
+        <div class="row">
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Liste des paniers</h5>
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Id</th>
+                                <th>Date</th>
+                                <th>Client</th>
+                                <th>Détails</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <c:forEach items="${paniersList}" var="panier">
+                                <tr>
+                                    <td>${panier.id}</td>
+                                    <td>
+                                        <fmt:formatDate value="${panier.date}" pattern="dd-MM-yyyy"/>
+                                    </td>
+                                    <td>${panier.client.firstName} ${panier.client.lastName}</td>
+                                    <td>
+                                        <a href="paniers/details/${panier.id}">
+                                            Voir
+                                        </a>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            <div class="col-sm-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Ajout de panier</h5>
+                        <form action="paniers" method="post">
+                            <div class="mb-3">
+                                <label for="inputClient" class="form-label">Client</label>
+                                <select name="client_id" class="form-control" id="inputClient" required>
+                                    <c:forEach items="${clientList}" var="client">
+                                        <option value="${client.id}">${client.firstName} ${client.lastName}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
 
-<body>
-<h2>Liste des Paniers</h2>
+                            <div class="mb-3">
+                                <label for="inputProduct" class="form-label">Produit(s)</label>
+                                <select name="products" multiple class="form-control" id="inputProduct" required>
+                                    <c:forEach items="${productList}" var="product">
+                                        <option value="${product.ref}">${product.ref} - ${product.name}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
 
-<table border="1">
-    <thead>
-    <tr>
-        <th>ID</th>
-        <th>Date</th>
-        <th>Client</th>
-        <th>Produits</th>
-    </tr>
-    </thead>
-    <tbody>
-    <c:forEach var="panier" items="${panierList}">
-        <tr>
-            <td>${panier.id}</td>
-            <td>${panier.date}</td>
-            <td>${panier.client.firstName} ${panier.client.lastName}</td>
-            <td>
-                <ul>
-                    <c:forEach var="produit" items="${panier.produits}">
-                        <li>${produit.name} - Stock: ${produit.stock}</li>
-                    </c:forEach>
-                </ul>
-            </td>
-        </tr>
-    </c:forEach>
-    </tbody>
-</table>
+                            <button type="submit" class="btn btn-primary">Enregistrer</button>
+                        </form>
+                    </div>
+                </div>
+            </div>
 
-    <h3>Ajouter un produit au panier</h3>
-
-    <label for="client">Sélectionner le Client :</label>
-    <form:select path="clientId" id="client">
-        <form:option value="" label="-- Choisir un client --" />
-        <c:forEach var="client" items="${clientList}">
-            <form:option value="${client.id}" label="${client.firstName} ${client.lastName}" />
-        </c:forEach>
-    </form:select>
-
-    <br><br>
-
-    <label for="produit">Sélectionner le Produit :</label>
-    <form:select path="productId" id="produit">
-        <form:option value="" label="-- Choisir un produit --" />
-        <c:forEach var="product" items="${productList}">
-            <form:option value="${product.ref}" label="${product.name} - Stock: ${product.stock}" />
-        </c:forEach>
-    </form:select>
-
-    <br><br>
-
-    <label for="quantity">Quantité :</label>
-    <form:input path="quantity" type="number" min="1" />
-
-    <br><br>
-
-    <input type="submit" value="Ajouter au Panier" />
-</body>
-</html>
-
+        </div>
+    </div>
+</div>

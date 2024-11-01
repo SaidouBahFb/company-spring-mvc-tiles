@@ -11,7 +11,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 
-import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
 
@@ -20,12 +19,12 @@ public class PanierService implements IPanierService {
 
     private static final Logger logger = LoggerFactory.getLogger(PanierService.class);
 
-    private final IPanierDao panierDao = new PanierDao();
-    private final IClientDao clientDao = new ClientDao();
-    private final IProductDao productDao = new ProductDao();
+    private IPanierDao panierDao = new PanierDao();
 
     @Override
     public Optional<List<PanierDto>> findAll() {
+        logger.info(" - Tentative de liste des paniers");
+
         List<PanierEntity> panierEntities = panierDao.list(new PanierEntity());
         List<PanierDto> panierDtos = PanierMapper.toListPanierDto(panierEntities);
         return Optional.of(panierDtos);
@@ -33,44 +32,15 @@ public class PanierService implements IPanierService {
 
     @Override
     public boolean save(PanierDto panierDto) {
-        logger.info("Tentative d'enregistrement du panier : {}", panierDto);
-
-        try {
-            Optional<ClientEntity> clientOpt = clientDao.findById(panierDto.getClientId());
-            if (clientOpt.isEmpty()) {
-                throw new EntityNotFoundException("Client non trouvé avec l'ID : " + panierDto.getClientId());
-            }
-
-            for (String productRef : panierDto.getProductRefs()) {
-                Optional<ProductEntity> productOpt = productDao.findByRef(productRef);
-                if (productOpt.isEmpty()) {
-                    throw new EntityNotFoundException("Produit non trouvé avec la référence : " + productRef);
-                }
-            }
-
-            PanierEntity panierEntity = PanierMapper.toPanierEntity(panierDto, clientOpt.get());
-            return panierDao.save(panierEntity);
-        } catch (Exception e) {
-            logger.error("Erreur lors de l'enregistrement du panier", e);
-            return false;
-        }
+        PanierEntity panierEntity = PanierMapper.toPanierEntity(panierDto);
+        return panierDao.save(panierEntity);
     }
-
 
     @Override
-    public boolean updatePanier(PanierDto panierDto) {
-        logger.info("Mise à jour du panier : {}", panierDto);
-        try {
-            Optional<ClientEntity> clientOpt = clientDao.findById(panierDto.getClientId());
-            if (clientOpt.isEmpty()) {
-                throw new EntityNotFoundException("Client non trouvé avec l'ID : " + panierDto.getClientId());
-            }
-
-            PanierEntity panierEntity = PanierMapper.toPanierEntity(panierDto, clientOpt.get());
-            return panierDao.update(panierEntity);
-        } catch (Exception e) {
-            logger.error("Erreur lors de la mise à jour du panier", e);
-            return false;
-        }
+    public Optional<PanierDto> findById(Long id) {
+        PanierEntity panier = new PanierEntity();
+        Optional<PanierEntity> panierEntity = Optional.ofNullable(panierDao.get(id, panier));
+        return panierEntity.map(PanierMapper::toPanierDto);
     }
+
 }

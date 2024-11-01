@@ -37,7 +37,6 @@ public class ClientDao extends RepositoryImpl<ClientEntity> implements IClientDa
         update.set("firstname", clientEntity.getFirstName());
         update.set("lastname", clientEntity.getLastName());
         update.set("email", clientEntity.getEmail());
-        update.set("address", clientEntity.getAddress());
         update.set("tel", clientEntity.getTel());
 
         Predicate predicateEmail = cb.equal(client.get("email"), clientEntity.getEmail());

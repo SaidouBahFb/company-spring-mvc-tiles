@@ -2,49 +2,34 @@ package com.groupeisi.companyspringmvctiles.mapper;
 
 import com.groupeisi.companyspringmvctiles.dto.PanierDto;
 import com.groupeisi.companyspringmvctiles.entities.PanierEntity;
-import com.groupeisi.companyspringmvctiles.entities.ClientEntity;
-import com.groupeisi.companyspringmvctiles.entities.ProductEntity;
-import com.groupeisi.companyspringmvctiles.dto.ProductDto;
 
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class PanierMapper {
+    public PanierMapper() {
+    }
 
-    private PanierMapper() {}
+    public static PanierEntity toPanierEntity(PanierDto panierDto) {
 
-    public static PanierEntity toPanierEntity(PanierDto panierDto, ClientEntity client) {
         PanierEntity panierEntity = new PanierEntity();
 
         panierEntity.setId(panierDto.getId());
         panierEntity.setDate(panierDto.getDate());
-        panierEntity.setClient(client);
-        List<ProductEntity> productEntities = panierDto.getProductRefs()
-                .stream()
-                .map(ref -> {
-                    ProductEntity productEntity = new ProductEntity();
-                    productEntity.setRef(ref);
-                    return productEntity;
-                })
-                .collect(Collectors.toList());
-        panierEntity.setProducts(productEntities);
-        panierEntity.setProducts(productEntities);
+        panierEntity.setClient(ClientMapper.toClientEntity(panierDto.getClient()));
+        panierEntity.setProducts(ProductMapper.toListProductEntity(panierDto.getProducts()));
 
         return panierEntity;
     }
 
     public static PanierDto toPanierDto(PanierEntity panierEntity) {
+
         PanierDto panierDto = new PanierDto();
 
         panierDto.setId(panierEntity.getId());
+        panierDto.setClient(ClientMapper.toClientDto(panierEntity.getClient()));
         panierDto.setDate(panierEntity.getDate());
-        panierDto.setClientId(panierEntity.getClient().getId());
-        List<ProductDto> productDtos = ProductMapper.toListProductDto(panierEntity.getProducts());
-        List<String> productRefs = panierEntity.getProducts()
-                .stream()
-                .map(ProductEntity::getRef)
-                .collect(Collectors.toList());
-        panierDto.setProductRefs(productRefs);
+        panierDto.setProducts(ProductMapper.toListProductDto(panierEntity.getProducts()));
 
         return panierDto;
     }
@@ -55,9 +40,9 @@ public class PanierMapper {
                 .collect(Collectors.toList());
     }
 
-    public static List<PanierEntity> toListPanierEntity(List<PanierDto> panierDtos, ClientEntity client) {
+    public static List<PanierEntity> toListPanierEntity(List<PanierDto> panierDtos) {
         return panierDtos.stream()
-                .map(dto -> toPanierEntity(dto, client))
+                .map(PanierMapper::toPanierEntity)
                 .collect(Collectors.toList());
     }
 }

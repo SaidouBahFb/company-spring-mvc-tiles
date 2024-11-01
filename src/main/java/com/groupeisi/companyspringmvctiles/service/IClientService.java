@@ -10,4 +10,5 @@ public interface IClientService {
     boolean save(ClientDto clientDto);
     Optional<ClientDto> findByEmail(String email);
     boolean update(ClientDto clientDto);
+    Optional<ClientDto> findById(Long id);
 }

@@ -3,16 +3,10 @@ import java.util.Date;
 
 public class CommandeDto {
     private Long id;
+
     private Date date;
-    private Long panierId;
 
-    public CommandeDto() {}
-
-    public CommandeDto(Long id, Date date, Long panierId) {
-        this.id = id;
-        this.date = date;
-        this.panierId = panierId;
-    }
+    private PanierDto panier;
 
     public Long getId() {
         return id;
@@ -30,11 +24,20 @@ public class CommandeDto {
         this.date = date;
     }
 
-    public Long getPanierId() {
-        return panierId;
+    public PanierDto getPanier() {
+        return panier;
     }
 
-    public void setPanierId(Long panierId) {
-        this.panierId = panierId;
+    public void setPanier(PanierDto panier) {
+        this.panier = panier;
+    }
+
+    public CommandeDto() {
+    }
+
+    public CommandeDto(Long id, Date date, PanierDto panier) {
+        this.id = id;
+        this.date = date;
+        this.panier = panier;
     }
 }

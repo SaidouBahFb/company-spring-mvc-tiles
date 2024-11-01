@@ -33,10 +33,9 @@ public class PrivateFilter implements Filter {
         // on récupère la méthode HTTP utilis´ee (GET ou POST)
         String method = req.getMethod();
         if (username != null || chemin.equals("/") || chemin.equals("/login") || chemin.equals("/sigup")
-                || chemin.equals("/client")
                 || chemin.equals("/logout") || chemin.equals("/index.jsp")
                 || chemin.equals("/login") && method.equalsIgnoreCase("POST")
-                || chemin.equals("/singup") && method.equalsIgnoreCase("POST") || chemin.startsWith("/public/") || chemin.startsWith("/resources/"))
+                || chemin.equals("/singup") && method.equalsIgnoreCase("POST") || chemin.startsWith("/public/") || chemin.startsWith("/front/") || chemin.startsWith("/resources/"))
             chain.doFilter(request, response);
         else
             res.sendRedirect(req.getContextPath());

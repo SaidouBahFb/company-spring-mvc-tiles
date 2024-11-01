@@ -7,41 +7,25 @@ import java.util.List;
 @Entity
 @Table(name = "clients")
 public class ClientEntity implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "first_name", nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
     private String lastName;
 
-    @Column(name = "email", nullable = false, unique = true)
     private String email;
 
-    @Column(name = "password", nullable = true)
     private String password;
 
-    @Column(name = "tel")
     private String tel;
-
-    @Column(name = "address")
-    private String address;
 
     @OneToMany(mappedBy = "client")
     private List<PanierEntity> paniers;
 
-    public ClientEntity() {}
-
-    public ClientEntity(String firstName, String lastName, String email, String password, String tel, String address) {
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.email = email;
-        this.password = password;
-        this.tel = tel;
-        this.address = address;
+    public ClientEntity() {
     }
 
     public Long getId() {
@@ -90,14 +74,6 @@ public class ClientEntity implements Serializable {
 
     public void setTel(String tel) {
         this.tel = tel;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
     }
 
     public List<PanierEntity> getPaniers() {

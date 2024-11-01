@@ -5,17 +5,21 @@ import java.util.List;
 
 public class PanierDto {
     private Long id;
+
     private Date date;
-    private Long clientId;
-    private List<String> productRefs;
 
-    public PanierDto() {}
+    private ClientDto client;
 
-    public PanierDto(Long id, Date date, Long clientId, List<String> productRefs) {
+    private List<ProductDto> products;
+
+    public PanierDto() {
+    }
+
+    public PanierDto(Long id, Date date, ClientDto client, List<ProductDto> products) {
         this.id = id;
         this.date = date;
-        this.clientId = clientId;
-        this.productRefs = productRefs;
+        this.client = client;
+        this.products = products;
     }
 
     public Long getId() {
@@ -34,19 +38,19 @@ public class PanierDto {
         this.date = date;
     }
 
-    public Long getClientId() {
-        return clientId;
+    public ClientDto getClient() {
+        return client;
     }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
+    public void setClient(ClientDto client) {
+        this.client = client;
     }
 
-    public List<String> getProductRefs() {
-        return productRefs;
+    public List<ProductDto> getProducts() {
+        return products;
     }
 
-    public void setProductRefs(List<String> productRefs) {
-        this.productRefs = productRefs;
+    public void setProducts(List<ProductDto> products) {
+        this.products = products;
     }
 }

@@ -7,23 +7,20 @@ import java.util.Date;
 @Entity
 @Table(name = "commandes")
 public class CommandeEntity implements Serializable {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id", nullable = false)
     private Long id;
 
-    @Column(name = "date")
+    @Column(name = "date", nullable = false)
+    @Temporal(TemporalType.DATE)
     private Date date;
 
     @ManyToOne
-    @JoinColumn(name = "panier_id", nullable = false)
+    @JoinColumn(name = "panier_id")
     private PanierEntity panier;
 
-    public CommandeEntity() {}
-
-    public CommandeEntity(Date date, PanierEntity panier) {
-        this.date = date;
-        this.panier = panier;
+    public CommandeEntity() {
     }
 
     public Long getId() {

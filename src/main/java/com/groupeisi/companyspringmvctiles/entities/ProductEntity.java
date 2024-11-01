@@ -23,7 +23,16 @@ public class ProductEntity implements Serializable {
     @OneToMany(mappedBy = "product")
     private List<SalesEntity> sales;
 
+    @ManyToMany(mappedBy = "products")
+    private List<PanierEntity> paniers;
+
     public ProductEntity() {
+    }
+
+    public ProductEntity(String ref, String name, double stock) {
+        this.ref = ref;
+        this.name = name;
+        this.stock = stock;
     }
 
     public ProductEntity(String ref, String name, double stock, List<PurchasesEntity> purchases, List<SalesEntity> sales) {
@@ -73,4 +82,13 @@ public class ProductEntity implements Serializable {
     public void setSales(List<SalesEntity> sales) {
         this.sales = sales;
     }
+
+    public List<PanierEntity> getPaniers() {
+        return paniers;
+    }
+
+    public void setPaniers(List<PanierEntity> paniers) {
+        this.paniers = paniers;
+    }
+
 }

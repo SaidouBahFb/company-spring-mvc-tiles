@@ -50,12 +50,11 @@ public class ClientController {
             @RequestParam("firstName") String firstName,
             @RequestParam("lastName") String lastName,
             @RequestParam("email") String email,
-            @RequestParam(value = "tel", required = false) String tel,
-            @RequestParam(value = "address", required = false) String address) {
+            @RequestParam(value = "tel", required = false) String tel
+            ) {
 
-        logger.info("ClientController - Méthode POST appelée pour enregistrer un client");
         logger.debug("ClientController - Paramètres reçus : firstName={}, lastName={}, email={}, tel={}, address={}",
-                firstName, lastName, email, tel, address);
+                firstName, lastName, email, tel);
 
         ClientDto clientDto = new ClientDto();
         clientDto.setFirstName(firstName);
@@ -63,7 +62,6 @@ public class ClientController {
         clientDto.setEmail(email);
         clientDto.setPassword("default password");
         clientDto.setTel(tel);
-        clientDto.setAddress(address);
 
         try {
             clientService.save(clientDto);
